@@ -1,0 +1,84 @@
+:root {
+  --font-size-primary: 1rem; 
+  --font-family-primary: "Courier New", Courier, monospace;
+  --font-color-primary: blanchedalmond;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  font-weight: 400;
+  font-size: var(--font-size-primary);
+  line-height: 1.5;
+  text-align: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+.navMainWrapper {
+  position: sticky;
+  top: 0;
+  background: black;
+  color: var(--font-color-primary);
+  height: 2.5rem;
+  z-index: 1;
+  padding-top: 0.5rem;
+}
+
+.imageMainWrapper {
+  display: flex;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  width: 100%;
+}
+
+.lazyload-wrapper {
+  flex-shrink: 1;
+  flex-grow: 1;
+  margin: 0.5rem;
+  width: 100%;
+  justify-content: center;
+
+
+}
+
+.imageDataWrapper {
+  justify-content: center;
+}
+
+.imageData {
+  position: absolute;
+  text-align: left;
+  left: 20.7%;
+  background: black;
+  color:var(--font-color-primary);
+  cursor: pointer;
+  width: 60%;
+}
+
+img {
+  width: 60%;
+  /* width: min(60%, 37.5rem) */
+}
+
+input {
+  width: 70px;
+}
