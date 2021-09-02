@@ -67,16 +67,16 @@ body {
 .imageData {
   position: absolute;
   text-align: left;
-  left: 20.7%;
+  left: 20.5%;
   background: black;
   color:var(--font-color-primary);
-  cursor: pointer;
   width: 60%;
 }
 
 img {
   width: 60%;
   /* width: min(60%, 37.5rem) */
+  cursor: pointer;
 }
 
 input {

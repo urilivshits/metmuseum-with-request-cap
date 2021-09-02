@@ -1,10 +1,12 @@
 import './App.css';
 import React, { useEffect, useState } from "react";
 import LazyImage from "./LazyImage";
+import LazyImageRandomSource from './LazyImageRandomSource';
 import LazyLoad from "react-lazyload";
 
 const App = () => {
   const [objectIds, setObjectIds] = useState([]);
+  const [imageSourceOriginal, setImageSourceOriginal] = useState(true);
 
   useEffect(() => {
     fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects?departmentIds=11")
@@ -16,8 +18,6 @@ const App = () => {
     .catch(error => console.log(`There has been a problem with your fetch request: ${error.message}`))
   }, []);
 
-  // console.log("stateObjectIds", objectIds);
-
   const [imagesToLoad, setImagesToLoad] = useState(40);
   const handleImagesNumber = (e) => {
     setTimeout(() => {
@@ -26,7 +26,9 @@ const App = () => {
     }, 1000);
   };
 
-  console.log(imagesToLoad);
+  const handleSwitch = () => {
+    setImageSourceOriginal(!imageSourceOriginal);
+  };
 
   if (!objectIds.length) {
     return (
@@ -44,24 +46,35 @@ const App = () => {
           placeholder={imagesToLoad} 
           onChange={handleImagesNumber}
           name="number"
+          style={imageSourceOriginal ? {display: "initial"} : {display: "none"}}
           />
-          <label htmlFor="number"> / {objectIds.length} images to load from European Paintings department of the MET</label>
+          <label htmlFor="number" style={imageSourceOriginal ? {display: "initial"} : {display: "none"}}> / {objectIds.length} images to load from European Paintings department of the MET</label>
+          <button onClick={handleSwitch} style={{position: "absolute", right: "5%"}}>{imageSourceOriginal ? "Switch to CORS allowed" : "Switch to CORS denied"}</button>
         </div>
         <div className="imageMainWrapper">
           {[...Array(imagesToLoad).keys()].map(i => (
               <LazyLoad key={i} height={200}>
-                <LazyImage
-                  objectIds={objectIds}
-                  key={i}
-                  alt={`Random image ${i}`}
-                />
+                {imageSourceOriginal ? (
+                  <LazyImage
+                    objectIds={objectIds}
+                    key={i}
+                    alt={`Random image ${i}`}
+                  />
+                )
+                :
+                (
+                  <LazyImageRandomSource
+                    key={i}
+                    alt={`Random image ${i}`}
+                  />
+                )
+                }
               </LazyLoad>
           ))}
         </div>
       </div>
     );
   };
-
-  };
+};
 
 export default App;
